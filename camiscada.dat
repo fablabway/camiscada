@@ -1,0 +1,188 @@
+# camiscada dmeo brewery
+# 2019
+p1b1d1m1c1;CAP=10
+p1b1d1m1c1;CAP=20
+p1b1d1m1c1;CAP=30
+p1b1d1m1c1;CAP=40
+p1b1d1m1c1;CAP=50
+p1b1d1m1c1;CAP=60
+p1b1d1m1c1;CAP=70
+p1b1d1m1c1;CAP=80
+p1b1d1m1c1;CAP=90
+# tank HLT al max
+p1b1d1m1c1;CAP=100
+#p1b1d1m1c1;CAP=100
+# apro la valvola per MLT
+p1b1d1m2c1;FLO=1
+# AVVIO COOLER MLT
+p1b1d1m1c12;FLO=1
+# da HLT a MLT
+p1b1d1m1c1;CAP=90
+p1b1d1m1c2;CAP=10
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=80
+p1b1d1m1c2;CAP=20
+p1b1d1m1c1;CAP=70
+p1b1d1m1c2;CAP=30
+p1b1d1m1c1;CAP=60
+p1b1d1m1c2;CAP=40
+p1b1d1m1c1;CAP=50
+p1b1d1m1c2;CAP=50
+p1b1d1m1c1;CAP=40
+p1b1d1m1c2;CAP=60
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=30
+p1b1d1m1c2;CAP=70
+p1b1d1m1c1;CAP=20
+p1b1d1m1c2;CAP=80
+p1b1d1m1c1;CAP=10
+p1b1d1m1c2;CAP=90
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=0
+p1b1d1m1c2;CAP=100
+p1b1d1m1c12;FLO=0
+# chiudo la valvola verso MLT
+p1b1d1m2c1;FLO=0
+# leggo tem di MLT
+p1b1d1m1c2;TEM=10
+p1b1d1m1c2;TEM=20
+p1b1d1m1c2;TEM=30
+p1b1d1m1c2;TEM=40
+p1b1d1m1c2;TEM=50
+p1b1d1m1c2;TEM=60
+p1b1d1m1c2;TEM=70
+p1b1d1m1c2;TEM=80
+p1b1d1m1c2;TEM=90
+# APRO VAL PER BK E COMINCIO A TRASFERIRE...
+p1b1d1m1c3;TEM=90
+p1b1d1m1c7;FLO=1
+# boh, pompa:
+p1b1d1m2c2;FLO=1
+p1b1d1m1c2;CAP=90
+p1b1d1m1c3;CAP=10
+# CONTINUO A TRASFERIRE...
+p1b1d1m1c2;CAP=80
+p1b1d1m1c3;CAP=20
+p1b1d1m1c2;CAP=70
+p1b1d1m1c3;CAP=30
+p1b1d1m1c2;CAP=60
+p1b1d1m1c3;CAP=40
+# CONTINUO A TRASFERIRE...
+p1b1d1m1c2;CAP=50
+p1b1d1m1c3;CAP=50
+p1b1d1m1c2;CAP=40
+p1b1d1m1c3;CAP=60
+p1b1d1m1c2;CAP=30
+p1b1d1m1c3;CAP=70
+p1b1d1m1c2;CAP=20
+p1b1d1m1c3;CAP=80
+p1b1d1m1c2;CAP=10
+p1b1d1m1c3;CAP=90
+# TANK BK AL MAX
+p1b1d1m1c2;CAP=0
+p1b1d1m1c3;CAP=100
+# TANK BK AL MAX
+p1b1d1m1c3;TEM=90
+p1b1d1m1c3;TEM=80
+p1b1d1m1c3;TEM=70
+p1b1d1m1c3;TEM=60
+p1b1d1m1c3;TEM=50
+p1b1d1m1c3;TEM=40
+p1b1d1m1c3;TEM=30
+p1b1d1m1c3;TEM=20
+p1b1d1m1c3;TEM=10
+# 22:    // apro per ferm1
+p1b1d1m1c7;FLO=0 
+p1b1d1m2c2;FLO=0 
+p1b1d1m2c4;FL1=1
+# RIEMPIO FERM1
+p1b1d1m1c3;CAP=90      
+p1b1d1m1c4;CAP=10      
+# 24:    // RIEMPIO FERM1, ANCORA
+p1b1d1m1c3;CAP=80      
+p1b1d1m1c4;CAP=20      
+p1b1d1m1c3;CAP=70      
+p1b1d1m1c4;CAP=30      
+p1b1d1m1c3;CAP=60      
+p1b1d1m1c4;CAP=40      
+p1b1d1m1c3;CAP=50      
+p1b1d1m1c4;CAP=50      
+p1b1d1m1c3;CAP=40      
+p1b1d1m1c4;CAP=60      
+p1b1d1m1c3;CAP=30      
+p1b1d1m1c4;CAP=70      
+p1b1d1m1c3;CAP=20      
+p1b1d1m1c4;CAP=80      
+p1b1d1m1c3;CAP=10      
+p1b1d1m1c4;CAP=90      
+p1b1d1m1c3;CAP=0      
+p1b1d1m1c4;CAP=100      
+p1b1d1m2c4;FL1=0      
+#===========================================
+# 28:   // inizio PER SECONDO GIRO...                     
+#===========================================
+p1b1d1m1c1;TEM=10
+p1b1d1m1c2;TEM=10
+p1b1d1m1c1;CAP=10
+p1b1d1m1c1;CAP=20
+p1b1d1m1c1;CAP=30
+p1b1d1m1c1;CAP=40
+p1b1d1m1c1;CAP=50
+p1b1d1m1c1;CAP=60
+p1b1d1m1c1;CAP=70
+p1b1d1m1c1;CAP=80
+p1b1d1m1c1;CAP=90
+# tank HLT al max
+p1b1d1m1c1;CAP=100
+# apro la valvola per MLT
+p1b1d1m2c1;FLO=1
+# da HLT a MLT
+p1b1d1m1c1;CAP=90
+p1b1d1m1c2;CAP=10
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=80
+p1b1d1m1c2;CAP=20
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=70
+p1b1d1m1c2;CAP=30
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=60
+p1b1d1m1c2;CAP=40
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=50
+p1b1d1m1c2;CAP=50
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=40
+p1b1d1m1c2;CAP=60
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=30
+p1b1d1m1c2;CAP=70
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=20
+p1b1d1m1c2;CAP=80
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=10
+p1b1d1m1c2;CAP=90
+# da HLT a MLT ancora...
+p1b1d1m1c1;CAP=0
+p1b1d1m1c2;CAP=100
+# da HLT a MLT ancora...
+# chiudo la valvola verso MLT
+p1b1d1m2c1;FLO=0
+# leggo tem di MLT
+p1b1d1m1c2;TEM=10
+p1b1d1m1c2;TEM=20
+p1b1d1m1c2;TEM=30
+p1b1d1m1c2;TEM=40
+p1b1d1m1c2;TEM=50
+p1b1d1m1c2;TEM=60
+p1b1d1m1c2;TEM=70
+p1b1d1m1c2;TEM=80
+p1b1d1m1c2;TEM=90
+# APRO VAL PER BK E COMINCIO A TRASFERIRE...
+p1b1d1m1c3;TEM=90
+p1b1d1m1c7;FLO=1
+
+
+
+

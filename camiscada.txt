@@ -1,0 +1,228 @@
+********
+
+CAMISCADA v.1.0
+
+FLW, 2019
+
+www.fablabway.com
+
+last revision 16.08.2019
+
+****** DOCUMENTATION ******
+
+1      FILES AND FOLDERS
+CamiSCADA uses a single folder, which contains the application (camiscada.pde).
+Here is a complete list  of files involved:
+- camiscada.pde
+- camiscada.txt (this)
+- pericolo.png
+- camiscada.dat
+- camiscada.ini
+- *jar 
+
+2      INSTALLATION
+Create a folder and copy files listed above (1).
+
+3      RUN
+Start Processing, load camiscada.pde then click "run" 
+
+
+4      OBJECTS
+Each scada's object has an unique ID, derived from DNP3 naming.
+In the current version there are the followings objects:
+- TANK named MTANK
+- VALVE named MVALVE
+- VALVQ  (three ways)  named MVALVQ
+- PIPE  named MPIPE
+- PUMP named MPUMP
+
+
+
+4.1    OBJECT NAMING
+DCVID (Device ID) is structured as:
+ PLANT       ->"p"
+ BUILDING    ->"b"
+ DEPARTMENT  ->"d"
+ MACHINE      ->"m"
+ COMPONENT    ->"c"
+These fields contains a number. 
+As example a typical DCVID may be:   
+"p1b1d1m1c1" 
+where "p1" is the headquarter, "b1" a building and so on.
+
+
+5     COMPONENTS
+The last attribute of DVCID is the "component": attuator or sensor.
+Each component has one or more sub-attribute, for example a tank has a 
+pressure and temperature sensors (and so on).
+An example may be: "p1b1d1m1c2;TEM=50" where TEM is the temperature.
+Please note the semicolon separator between the DVCID and the value.
+
+6      CONFIGURATION 
+The file "camiscada.ini" defines the layout of the panel.
+It contains all SCADA's objects and the related parameters.
+The better way to get (and build) the ini file could be a simple query on database.
+This file has two sections: objects and pipes.
+
+6.1   CONF. OBJECTS
+A simple row is:
+TANK;p1b1d1m1c1;90;50;HLT
+defines:
+  - a tank object
+  - his name (DVCID)
+  - position (x and y)
+  - display name 
+
+6.2   PIPES CONFIGURATION
+The pipes configuration is more complicated than other objects.
+Here is an example:
+PIPE;p1b1d1m3c2;p1b1d1m1c1;DX;p1b1d1m2c1;SX;to_pump3a
+where 
+  - PIPE is the object class
+  - p1b1d1m3c2 is the DVCID of this pipe
+  - p1b1d1m1c1 is the starting object
+  - DX is the anchor of the starting object
+  - p1b1d1m2c1 is the final object
+  - SX is the anchor of the final object
+  - to_pump3a as display name of this pipe
+
+ 
+7    SCREEN LAYOUT
+Each object has coordinates-couple: x and y.
+This couple refers to the upper-left corner of the object.
+For example "300,400" means 300 pixel starting from left and 400 pixel starting from the upper edge of the window.
+The vertical size of the object depending on his header plus container (a box):
+ 
+ +-------+  <--------------+
+ | tank1 |                 |
+ +-------+  <---+          |
+ |       |      |          wsizey+wsizetxt
+ |       |   wsizey        |
+ |       |      |          |
+ +-------+   <--+----------+
+ ^       ^
+ +wsizex-+ 
+ 
+
+8		SHAPES
+ There are two kind of object's shapes: square and rectang.
+ 
+9		ANCHORS
+Each object has two or more connector for pipe fastening.
+The number of connector is depending on the object's kind:
+- TANK:   SX,DX,UP,DN
+- VALVE:  SX,DX
+- VALVQ:  UP,D1,D2,D3
+
+
+10		LIMIT
+CamiSCADA can manage up to:
+#20 TANK 
+#20 VALVE 
+#20 VALVQ 
+#200 PIPE
+#20 HEATER
+#20 COOLER
+#20 SCALER
+#20 EXTRUDER 
+
+
+11		ERP INTEGRATION
+
+
+
+12 		COMMUNICATION
+ 2.1 usb  
+ 2.2 rs485  (not yet defined)
+ 2.3 TCPIP:12345  (not yet defined)
+
+
+13 		SENSOR LABELS
+- CAP = capacity used  (%)
+- TEM = tempeture (°C)
+- BAR = pressure (bar)
+- MOI = moisture (rH%)
+- WEI = weigth (gr)
+E.g.:
+ p1b1d1m1c1.CAP=70
+ the tank "p1b1d1m1c1" is 70% filled (30% remaining).
+ 
+
+14		ACTUATORS MESSAGES
+ FLO = "1" or "0" - single valve
+ FL[1:3] = "1" or "0" - three chn valve (valveq)
+ HET = "1" or "0" - heater
+ MOT = "1" or "0" - motor
+ PW[n] = 0 to 255 - PWM output
+ 
+
+15		FLOWS
+ 
+ +------+     +--------+    +-------+
+ | ARD  |<-+->| SCADA  |--->| RDBMS |
+ +------+  |   +--------+    +-------+
+           |
++------+   |
+| ARD  |<--+ 
++------+ 
+
+
+
+16		 DATABASE
+Oracle XE.
+ 
+
+17		LOGFILE
+Each command (received or sent) from CamiSCADA is stored into MBUFLOG obj.
+When the MBUFLOG's items reach the limit (var wlogcnt, default 200), a new log file 
+is written into current dir.
+The logfile format is:
+"camiscada_" + YYYYMMDD_HHMISS + ".log" e.g.:
+camiscada_20190807_125613.log
+
+17.1	LOGFILE UPLOAD
+A shell script read and load into staging table.
+/* pcode
+for each file in dir (cami*.log)
+	create a new ctl file
+	sqlldr .... control=newcamilog.ctl
+	mv log to another dir
+
+*/
+
+17.2	CAMISCADA SQLLDR
+Here is the "camiscada.ctl":
+-- load file example
+load data
+INFILE 'camiscada_20190807_125613.log'
+APPEND
+INTO TABLE M19STGLOG
+FIELDS TERMINATED BY ';' TRAILING NULLCOLS
+(MWHEN DATE "DD.MM.YYYY HH24:MI:SS" ,
+ MDVCID,
+ MCOMPVAL )
+-- eof 
+
+17.3	RUN SQLLDR
+To automate the log file loading use runloader.sh:
+# runloader.sh
+wrunctl="runloader.ctl"
+for mylog in camiscada*.log
+do
+	echo "--" > ${wrunctl} 
+	echo "load data" >> ${wrunctl} 
+	echo "INFILE '$mylog'" >> ${wrunctl}  
+	echo "APPEND INTO TABLE M19STGLOG" >> ${wrunctl}  
+	echo "FIELDS TERMINATED BY ';' TRAILING NULLCOLS" >> ${wrunctl}  	
+	echo "(MWHEN DATE \"DD.MM.YYYY HH24:MI:SS\" ,MDVCID,MCOMPVAL )	" >> ${wrunctl}  			
+	sqlldr myapex/myapex123@ursa control=${wrunctl} 
+	mv ./$mylog ./saved/$mylog
+	
+done
+
+Before to start, create a "saved" subdir.
+
+
+
+
+
